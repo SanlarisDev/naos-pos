@@ -1,0 +1,7 @@
+{
+  "name": "naos-pos",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
