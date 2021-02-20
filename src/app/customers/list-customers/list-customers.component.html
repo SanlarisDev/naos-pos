@@ -1,0 +1,35 @@
+<!--   <ion-button (click)="toggleInfiniteScroll()" expand="block">
+    Toggle Infinite Scroll
+  </ion-button> -->
+
+  <ion-list>
+    <ion-item *ngFor="let customer of data$ | async; index as i">
+      {{customer}}
+        <ion-avatar slot="start">
+          <img [src]="customer.imageUrl">
+        </ion-avatar>
+        <ion-label>
+          <ion-text>
+            <h2>{{customer.name}}</h2>
+            <p>{{customer.vip}}</p>
+          </ion-text>
+          <ion-text color="medium">
+            <p>{{customer.phone}}</p>
+          </ion-text>
+          <ion-text color="medium">
+              <p>{{customer.vip}}</p>
+              <ng-template *ngIf="customer.vip!=''">
+                <p>VIP desde: {{customer.date_upd_vip}}</p>
+                <p>VIP hasta: {{customer.date_end_vip}}</p>
+              </ng-template>
+            </ion-text>
+        </ion-label>
+      </ion-item>
+  </ion-list>
+
+<!--   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->

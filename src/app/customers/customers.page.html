@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Clientes</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <app-list-customers *ngIf="viewList.list"></app-list-customers>
+    <app-customer *ngIf="viewList.details"></app-customer>
+    <app-edit-customer *ngIf="viewList.edit"></app-edit-customer>
+</ion-content>
