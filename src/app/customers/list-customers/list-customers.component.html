@@ -1,35 +1,89 @@
-<!--   <ion-button (click)="toggleInfiniteScroll()" expand="block">
-    Toggle Infinite Scroll
-  </ion-button> -->
-
-  <ion-list>
-    <ion-item *ngFor="let customer of data$ | async; index as i">
-      {{customer}}
-        <ion-avatar slot="start">
-          <img [src]="customer.imageUrl">
-        </ion-avatar>
-        <ion-label>
-          <ion-text>
+<!-- Don't customers-->
+<div *ngIf="!data$">
+  <div class="empty-list">
+    <ion-icon class="" name="person-circle-outline" item-left></ion-icon>
+    <span> No existen clientes</span>
+  </div>
+</div>
+<ion-grid>
+  <!-- Data customers -->
+  <ion-row>
+    <ion-col size-lg="3" size-md="6" size-xs="12" *ngFor="let customer of data$ | async; index as i">
+      <!-- CARD MODE EDITING-->
+      <ion-card *ngIf="isEditActive(i)">
+        <div class="image-customer">
+          <img [src]="customer.imageUrl ? customer.imageUrl : '../../../assets/image/no-photo-customer.jpg'">
+        </div>
+        <ion-item>
+          <ion-card-title>
+            <ion-input [(ngModel)]="customerEditing.name"></ion-input>
+          </ion-card-title>
+          <ion-button fill="solid" slot="end"
+            (click)="onClickSave(customerEditing, i)">
+            <ion-icon name="save"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="call" slot="start"></ion-icon>
+          <ion-input [(ngModel)]="customerEditing.phone"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="star" slot="start"></ion-icon>
+          <ion-select [(ngModel)]="customerEditing.vip" okText="OK" cancelText="Cancelar">
+            <ng-container *ngFor="let vip of optionsVip; index as i">
+              <ion-select-option [value]="i">{{vip}}</ion-select-option>
+            </ng-container>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="beer" slot="start"></ion-icon>
+          <ion-icon name="remove-circle" (click)="decrementQty(i)" item-right></ion-icon>
+          <div class="input_number">
+            <ion-input size="2" [(ngModel)]="customerEditing.drinks_vip"></ion-input>
+          </div>
+          <ion-icon name="add-circle" (click)="incrementQty(i)" item-right></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="calendar-number" slot="start"></ion-icon>
+          <ion-label>{{ customerEditing.date_upd_vip.toDate() | date:'shortDate' }} --> {{ customerEditing.date_end_vip.toDate() |
+            date:'shortDate' }}</ion-label>
+          <ion-button fill="solid" size="small" slot="end"
+          (click)="updateDateVip(customerEditing)">
+          Renovar
+          </ion-button>
+        </ion-item>
+      </ion-card>
+      <!-- CARD MODE DETAIL-->
+      <ion-card *ngIf="!isEditActive(i)">
+        <div class="image-customer">
+          <img [src]="customer.imageUrl ? customer.imageUrl : '../../../assets/image/no-photo-customer.jpg'">
+        </div>
+        <ion-item>
+          <ion-card-title>
             <h2>{{customer.name}}</h2>
-            <p>{{customer.vip}}</p>
-          </ion-text>
-          <ion-text color="medium">
-            <p>{{customer.phone}}</p>
-          </ion-text>
-          <ion-text color="medium">
-              <p>{{customer.vip}}</p>
-              <ng-template *ngIf="customer.vip!=''">
-                <p>VIP desde: {{customer.date_upd_vip}}</p>
-                <p>VIP hasta: {{customer.date_end_vip}}</p>
-              </ng-template>
-            </ion-text>
-        </ion-label>
-      </ion-item>
-  </ion-list>
-
-<!--   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll> -->
+          </ion-card-title>
+          <ion-button fill="solid" slot="end" (click)="onClickEdit(customer,i)">
+            <ion-icon name="pencil"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="call" slot="start"></ion-icon>
+          <ion-label>{{customer.phone}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="star" slot="start"></ion-icon>
+          <ion-label>{{getVipLvl(customer.vip, customer.date_end_vip)}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="beer" slot="start"></ion-icon>
+          <ion-label>{{customer.drinks_vip}}/{{maxDrinksVip}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="calendar-number" slot="start"></ion-icon>
+          <ion-label>{{ customer.date_upd_vip.toDate() | date:'shortDate' }} --> {{ customer.date_end_vip.toDate() |
+            date:'shortDate' }}</ion-label>
+        </ion-item>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>

@@ -1,0 +1,11 @@
+.wrapper-title{
+    display: flex;
+    align-items:center;
+    & > .logo {
+        max-width: 60px;
+    }
+    & > .title {
+        font-weight: 900;
+        margin-left: 10px;
+    }
+}

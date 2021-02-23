@@ -12,16 +12,16 @@ const routes: Routes = [
         loadChildren: () => import('../customers/customers.module').then(m => m.CustomersPageModule)
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'orders',
+        loadChildren: () => import('../orders/orders.module').then(m => m.OrdersPageModule)
       },
 /*       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'orders',
+        loadChildren: () => import('../orders/orders.module').then(m => m.ordersPageModule)
       }, */
       {
         path: 'explore-container',
-        loadChildren: () => import('../explore-container/explore-container.module').then(m => m.ExploreContainerComponentModule)
+        loadChildren: () => import('../shared/explore-container/explore-container.module').then(m => m.ExploreContainerComponentModule)
       },
       {
         path: 'home',
@@ -36,7 +36,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '',
+    redirectTo: 'customers',
     pathMatch: 'full'
   }
 ];

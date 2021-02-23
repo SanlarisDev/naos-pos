@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      <div class="wrapper-title">
+        <img class="logo" src="../../../assets/image/logo.png" />
+        <span class="title">{{title}}</span>
+      </div>
+    </ion-title>
+
+    <ion-buttons slot="secondary">
+      <ion-button *ngIf="activeButtons.add">
+        <ion-icon slot="icon-only" name="add-circle"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="activeButtons.edit">
+        <ion-icon slot="icon-only" name="pencil"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="activeButtons.delete">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="activeButtons.list">
+        <ion-icon slot="icon-only" name="list"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

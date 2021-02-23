@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -14,6 +14,13 @@ import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SharedModule } from './shared/shared.module';
+
+import localeEs from '@angular/common/locales/es-419';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeEs, 'es-419');
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,9 +32,15 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    SharedModule
   ],
-  providers: [StatusBar, SplashScreen, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    StatusBar, 
+    SplashScreen, 
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: LOCALE_ID, useValue: "es-419" }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -10,7 +10,7 @@ export class CustomersPage implements OnInit {
   viewList = {
     list: true,
     details: false,
-    edit: false
+    edit: true
   };
 
   constructor() { }

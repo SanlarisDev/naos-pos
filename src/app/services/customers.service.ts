@@ -1,27 +1,21 @@
 import { Injectable } from "@angular/core";
-import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, Subject, from } from 'rxjs';
-import * as firebase from 'firebase/app';
 
 import { Customer } from '../customers/customers.model';
 import { AngularFireAuth } from '@angular/fire/auth';
+
+const COLLECTION = 'customers';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class CustomersService {
-  customersRef: AngularFireList<Customer>;
-  customerRef: AngularFireObject<Customer>;
-  
-  constructor(private db: AngularFireDatabase, public afAuth: AngularFireAuth ) {
-    this.customersRef = db.list('customers');
-    this.customerRef = db.object('customers');
-   }
+export class CustomersService {  
+  constructor(private db: AngularFirestore, public afAuth: AngularFireAuth ) {}
 
   AddCustomer(customer: Customer){
-    this.customerRef.set({
-      id: null,
+    this.db.collection(COLLECTION).add({
       name: customer.name,
       phone: customer.phone,
       vip: customer.vip,
@@ -33,32 +27,22 @@ export class CustomersService {
     })
   }
 
-  GetCustomer(id: string): Observable<Customer>{
-    this.customerRef = this.db.object(`customers/${id}`);
-    return this.customerRef.valueChanges();
+  GetCustomer(id: string){
+    return this.db.collection(COLLECTION).doc(id).snapshotChanges();
   }
 
   GetCustomersList(){
-    this.customersRef = this.db.list(`customers`);
-    return this.customersRef.valueChanges();
+    let res = this.db.collection(COLLECTION);
+    return res.valueChanges({ idField: 'id' });
   }
 
   UpdateCustomer(customer: Customer) {
-    this.customerRef.update({
-      id: customer.id,
-      name: customer.name,
-      phone: customer.phone,
-      vip: customer.vip,
-      drinks_vip: customer.drinks_vip,
-      date_init_vip: customer.date_init_vip,
-      date_upd_vip: customer.date_upd_vip,
-      date_end_vip: customer.date_end_vip
-    })
+    console.log('UpdateCustomer',customer);
+    this.db.collection(COLLECTION).doc(customer.id).set(customer);
   }
 
   DeleteUser(id: string) {
-    this.customerRef = this.db.object(`customers/${id}`);
-    this.customerRef.remove();
+    this.db.collection(COLLECTION).doc(id).delete();
   }
 
 }

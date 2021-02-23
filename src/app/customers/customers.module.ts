@@ -9,20 +9,20 @@ import { CustomersPage } from './customers.page';
 import { ListCustomersComponent } from './list-customers/list-customers.component';
 import { CustomerComponent } from './customer/customer.component';
 import { CustomersService } from '../services/customers.service';
-import { EditCustomerComponent } from './edit-customer/edit-customer.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CustomersPageRoutingModule
+    CustomersPageRoutingModule,
+    SharedModule,
   ],
   declarations: [
     CustomersPage, 
     ListCustomersComponent,
-    CustomerComponent,
-    EditCustomerComponent
+    CustomerComponent
   ],
   providers: [CustomersService]
 })
