@@ -7,7 +7,6 @@ export const environment = {
   firebase: {      
     apiKey: "AIzaSyC5SFXGJD0tvoOBxDc4FEmhvzaXBK1MPZ8",
     authDomain: "naos-pos.firebaseapp.com",
-    /* databaseURL: "naos-pos-default-rtdb.firebaseio.com", */
     databaseURL: "naos-pos.firebaseio.com",
     projectId: "naos-pos",
     storageBucket: "naos-pos.appspot.com",
