@@ -1,7 +1,6 @@
 # naos-pos
 Nao's Club Point of Sale
 
-**example in live**
--------------------
-naosclubpos.sanlaris.es[naosclubpos.sanlaris.es]
-Project under development, Custormer is the only functional page.
+## example in live
+Project under development, Custormer is the only functional page. [Click here](naosclubpos.sanlaris.es)
+
